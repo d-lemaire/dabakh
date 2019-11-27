@@ -4,6 +4,7 @@ include 'connexion.php';
 $search=$_POST['search'];
 $bailleur=$_POST['bailleur'];
 $db->query("SET lc_time_names = 'fr_FR';");
+$total=0;
 if ($search=="")
 {
 	if ($bailleur==0)
@@ -45,13 +46,14 @@ $resultat=$reponse->rowCount();
 while ($donnees= $reponse->fetch())
 {
 $id=$donnees['0'];
-						$designation=$donnees['1'];
-						$adresse=$donnees['2'];
+$designation=$donnees['1'];
+$adresse=$donnees['2'];
 $date_debut=$donnees['3'];
 $pu=$donnees['4'];
 $bailleur=$donnees['5'];
 $locataire=$donnees['6'];
-				$caution=$donnees['7'];
+$caution=$donnees['7'];
+++$total;	
 echo "<tr>";
 		//echo "<td> <a class='tooltipped' data-position='top' data-delay='50' data-tooltip='cliquez ici pour modifier' href='m_location.php?id=$id'>".$date_debut."</a></td>";
 		echo "<td>".$date_debut."</td>";
@@ -70,6 +72,10 @@ echo "<tr>";
 	}
 		
 echo "</tr>";}
+echo "<tr class='grey'>";
+	echo"<td colspan='3'><b>TOTAL</b></td>";
+	echo"<td colspan='3'><b>".$total." locations</b></td>";
+echo "</tr>";
 if ($resultat<1)
 {
 	echo "<h3 class='center'>Aucun résultat</h3>";

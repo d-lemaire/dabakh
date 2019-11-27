@@ -48,7 +48,7 @@ echo "<tr>";
 	echo "<td>".strtoupper($type_depense)."</td>";
 	echo "<td>".$motif."</td>";
 	echo "<td><b>".strtoupper($type_paiement)."</b></td>";
-	echo "<td>".number_format($montant,0,'.',' ')." Fcfa</td>";
+	echo "<td>".number_format($montant,0,'.',' ')." </td>";
 	if ($_SESSION['fonction']=="administrateur") 
 	{
 		echo "<td> <a class='red btn' href='s_depense_bailleur.php?id=$id'>Supprimer</a></td>";
@@ -57,7 +57,7 @@ echo "</tr>";
 }
 echo "<tr class='brown lighten-4'>";
 	echo "<td colspan='4'><b>TOTAL</b>";
-	echo "<td colspan='2'><b>".number_format($total,0,'.',' ')." Fcfa</b>";
+	echo "<td colspan='2'><b>".number_format($total,0,'.',' ')." </b>";
 echo "</tr>";
 ?>
 <script type="text/javascript">

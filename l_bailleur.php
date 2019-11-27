@@ -16,10 +16,19 @@ window.location = 'index.php';
 		<title>Liste des bailleurs</title>
 		<?php include 'entete.php'; ?>
 	</head>
-	<body style="background-image: url(<?=$image ?>l_bailleur.jpg);">
+	<body id="debut" style="background-image: url(<?=$image ?>l_bailleur.jpg);">
 		<?php
 		include 'verification_menu_immo.php';
 		?>
+		<div class="fixed-action-btn">
+	      <a class="btn-floating btn-large brown">
+	        <i class="large material-icons">import_export</i>
+	      </a>
+	      <ul>
+	        <li><a href="#debut" class="btn-floating green"><i class="material-icons">arrow_upward</i></a></li>
+	        <li><a href="#fin" class="btn-floating red darken-1"><i class="material-icons">arrow_downward</i></a></li>
+	      </ul>
+	    </div>
 		<div class="row">
 			<h3 class="center col s12 black-text" ><b>Liste des bailleurs</b></h3>
 			<div class="col s4 input-field white" style="border-radius: 45px">
@@ -47,7 +56,7 @@ window.location = 'index.php';
 				</table>
 			</div>
 		</div>
-
+	<span id="fin"></span>
 	</body>
 	<style type="text/css">
 		
@@ -77,6 +86,7 @@ window.location = 'index.php';
 			l_bailleur(search)
 				});
 			$('.tooltipped').tooltip();
+			$('.fixed-action-btn').floatingActionButton();
 	});
 	</script>
 	<style type="text/css">

@@ -4,10 +4,19 @@
 		<title>Liste logements occupé</title>
 		<?php include 'entete.php'; ?>
 	</head>
-	<body style="background-image: url(<?=$image ?>l_logement_occupe.png);">
+	<body id="debut" style="background-image: url(<?=$image ?>l_logement_occupe.png);">
 		<?php
 		include 'verification_menu_immo.php';
 		?>
+		<div class="fixed-action-btn">
+	      <a class="btn-floating btn-large brown">
+	        <i class="large material-icons">import_export</i>
+	      </a>
+	      <ul>
+	        <li><a href="#debut" class="btn-floating green"><i class="material-icons">arrow_upward</i></a></li>
+	        <li><a href="#fin" class="btn-floating red darken-1"><i class="material-icons">arrow_downward</i></a></li>
+	      </ul>
+	    </div>
 		<div class="row">
 			<h3 class="center col s12 white-text" >Liste des logements occupés</h3>
 			<div class="col s12 ">
@@ -27,6 +36,7 @@
 						
 						<?php
 						include 'connexion.php';
+						$total=0;
 						$db->query("SET lc_time_names = 'fr_FR';");
 						$reponse=$db->query("SELECT logement.id, CONCAT(bailleur.prenom,' ', bailleur.nom), logement.designation, type_logement.type_logement, logement.adresse, logement.pu, logement.nbr_occupe
 						FROM `logement`, bailleur, type_logement  
@@ -40,7 +50,8 @@
 						$type_logement=$donnees['3'];					
 						$adresse=$donnees['4'];									
 						$pu=$donnees['5'];					
-						$nbr_occupe=$donnees['6'];					
+						$nbr_occupe=$donnees['6'];	
+						++$total;				
 						echo "<tr>";
 							echo "<td></td>";
 							echo "<td>".$bailleur."</td>";
@@ -50,7 +61,10 @@
 							echo "<td>".$adresse."</td>";
 							echo "<td>".number_format($pu,0,'.',' ')." Fcfa</td>";
 						echo "</tr>";}
-						
+						echo "<tr class='grey'>";
+							echo"<td colspan='3'><b>TOTAL</b></td>";
+							echo"<td colspan='3'><b>".$total." logements occupés</b></td>";
+						echo "</tr>";
 						?>
 					</tbody>
 				</table>
@@ -62,7 +76,7 @@
 				?>
 			</div>
 		</div>
-		
+		<span id="fin"></span>
 	</body>
 	<style type="text/css">
 		table
@@ -74,6 +88,7 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 	$('.tooltipped').tooltip();
+	$('.fixed-action-btn').floatingActionButton();
 	});
 	</script>
 	<style type="text/css">

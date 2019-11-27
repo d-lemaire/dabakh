@@ -187,55 +187,103 @@ if (session_status() == PHP_SESSION_NONE) {
 </nav>
 
 <ul class="sidenav" id="mobile-demo">
+<li><a href="immobilier.php"><b>Accueil</b></a></li>
   <?php
       if ($_SESSION['fonction']!='femme de charge')
       {
-        if ($_SESSION['fonction']=='daf' OR $_SESSION['fonction']=='administrateur')
-        {
-          echo ' <li ><a href="banque.php">Nouvelle opération</a></li>';
-          echo ' <li ><a href="etat_banque.php">Etat banque</a></li>';
-        }
-    
-      if ($_SESSION['fonction']=='secretaire')
-      {
         ?>
-        <li><a href="e_caisse_immo.php">Caisse immo</a></li>
-        <?php    
-      }
-      ?>
-    <li><a href="etat_caisse_immo.php">Etat caisse immo</a>
+        <li><b>Finance</b></li>
+        <li><a href="etat_caisse_immo.php">Caisse immo</a></li>      
+        <li><a href="etat_caisse_caution.php">Caisse caution</a></li>
+         <?php
+          if ($_SESSION['fonction']=='administrateur' OR $_SESSION['fonction']=='daf') 
+          {
+            ?>
+          <li><a href="etat_banque.php">Banque</a></li>
+           <?php  
+          }
+          
+          ?>
+         <?php
+          if ($_SESSION['fonction']=='administrateur') 
+          {
+            ?>
+            <li><a href="commission.php">Commission</a></li>
+            <li><a href="commission_locative.php">Commission locative</a></li>
+            <?php  
+        } 
+        ?>
 
-    <li><a href="e_caisse_caution.php">Caisse caution</a></li>
-    <li><a href="etat_caisse_caution.php">Etat caisse caution</a></li>
-     <?php
-      if ($_SESSION['fonction']=='administrateur') 
-      {
-        ?>
-        <li><a href="commission.php">Commission</a></li>
-        <?php  
-      }
-      
-      ?>
-        <li><a href="e_location.php">Nouveau dossier</a></li>
-  <li><a href="l_location.php">Liste des locations</a></li><li><a href="type_logement.php">Type logement</a></li>
-  <li><a href="l_logement_libre.php">Logements libre</a></li>
-  <li><a href="l_logement_occupe.php">Logements occupé</a></li>
+        <li><b>Logement</b></li>
+        <li><a href="type_logement.php">Type logement</a></li>
+        <li><a href="l_logement_libre.php">Logements libre</a></li>
+        <li><a href="l_logement_occupe.php">Logements occupé</a></li>
+
+        <li><b>Bailleur</b></li>
         <li><a href="e_bailleur.php">Nouveau +</a></li>
-  <li><a href="l_bailleur.php">Liste des bailleurs</a></li>
-       <li><a href="l_locataire_actif.php">Locataires actif</a></li>
-  <li><a href="l_locataire_inactif.php">Locataires inactif</a></li>
-        <li>
-      <?php
+        <li><a href="l_bailleur.php">Liste des bailleurs</a></li>
+        <li><a href="l_mensualite_bailleur.php">Mensualités</a></li>
+        <li><a href="l_depenses_bailleur.php">Dépense bailleur</a></li>
+        <?php
+          if ($_SESSION['fonction']=='administrateur') 
+          {
+            ?>
+            <li><a href="contrat_convention.php?id=1">Contrat</a></li>
+            <?php
+          }
+        ?>
+
+        <li><b>Locataire</b></li>
+        <li><a href="l_locataire_actif.php">Locataires actif</a></li>
+        <li><a href="l_locataire_inactif.php">Locataires inactif</a></li>
+        <li><a href="l_depense_locataire.php">Dépenses locataires</a></li>
+
+        <li><b>Location</b></li>
+        <li><a href="e_location.php">Nouveau dossier</a></li>
+        <li><a href="l_location.php">Liste des locations</a></li>
+        <?php
+          if ($_SESSION['fonction']=='administrateur') 
+          {
+            ?>
+            <li><a href="contrat_location.php?id=2">Contrat</a></li>
+            <?php
+          }
+        ?>
+
+        <li><b>Mensualité</b></li>
+        <li><a href="e_mensualite.php">Enregistrer</a></li>
+        <li><a href="l_mensualite_paye.php">Payée(s)</a></li>
+        <li><a href="l_mensualite_impaye.php">Impayée(s)</a></li>
+
+        <li><b>Contact</b></li>
+        <li><a href="e_contact.php">Nouveau </a></li>
+        <li><a href="l_contact.php">Liste des contacts</a></li>
+
+
+        <li><b>Consomables</b></li>
+        <li><a href="consommable.php">Consommables </a></li>
+        <li><a href="l_ravitaillement_consommable.php">Ravitaillements</a></li>
+        <li><a href="l_consommable_user.php">Dotations</a></li>
+
+
+
+        <?php
+          if ($_SESSION['service1']=='service general') 
+          {
+            ?>
+            <li><a href="sante.php">Santé</a></li>
+            <?php
+          }
+        
       }
       if ($_SESSION['fonction']=='femme de charge')
       {
         ?>
-          <li ><a  href="pointage_personnel_immo.php" >Pointage</a></li>
-      <?php
-    }
+            <li ><a  href="pointage_personnel_immo.php" >Pointage</a></li>
+        <?php
+      }
           ?>
-       <li><a href="deconnexion.php">Déconnexion</a></li>
-  <li><a href="pointage_personnel_immo.php">Pointage</a></li>
+       <li><a href="deconnexion.php">Déconnexion<i class="material-icons">power_settings_new</i></a></li>
       <li ><a  ></a></li>
 </ul>
 

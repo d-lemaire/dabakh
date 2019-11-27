@@ -45,7 +45,7 @@ echo"<tr>";
     echo "<td class='right-align'>".number_format($solde_jour_j,0,'.',' ')." </td>";
 echo"<tr>";
     
-$req=$db->prepare("SELECT id_operation, CONCAT(DATE_FORMAT(date_operation, '%d'), '/', DATE_FORMAT(date_operation, '%m'),'/', DATE_FORMAT(date_operation, '%Y')), motif, type, montant, id_consultation,section, id_patient_externe, id_consultation_domicile
+$req=$db->prepare("SELECT id_operation,  CONCAT(DATE_FORMAT(date_operation, '%d'), '/', DATE_FORMAT(date_operation, '%m'),'/', DATE_FORMAT(date_operation, '%Y')), motif, type, montant, id_consultation,section, id_patient_externe, id_consultation_domicile, id_user, pj
 FROM `caisse_sante`
 WHERE month(date_operation)=? AND year(date_operation)=? AND date_operation BETWEEN ? AND ? ORDER BY date_operation, id_operation ASC,  section");
 $req->execute(array($mois, $annee, $jour_d, $jour_f));
@@ -66,6 +66,8 @@ if ($nbr>0)
 		$section=$donnees['6'];
 		$id_patient_externe=$donnees['7'];
 		$id_consultation_domicile=$donnees['8'];
+		$id_user=$donnees['9'];
+		$pj=$donnees['10'];
 		if ($type=='entree') 
 		{
 			echo "<tr class='blue lighten-3'>";
@@ -79,6 +81,32 @@ if ($nbr>0)
 			echo "<tr>";
 		}
 		echo "<td>". $date_operation. "</td>";
+
+		//Affichage des pièces jointes
+			if (isset($id_consultation)) 
+			{
+				echo "<td class='center'><a target='_blank' href='i_facture_cons.php?id=".str_pad($id_consultation, 3, "0", STR_PAD_LEFT)."'>N° ".$id_consultation."</a></td>";	
+			}
+			elseif (isset($id_consultation_domicile)) 
+			{
+				echo "<td class='center'><a target='_blank' href='i_facture_cons_d.php?id=".$id_consultation_domicile."'>N° ".str_pad($id_consultation_domicile, 3, "0", STR_PAD_LEFT)."</a></td>";	
+			}
+			elseif (isset($id_patient_externe)) 
+			{
+				echo "<td class='center'><a target='_blank' href='i_fac_autres_soins.php?id=".$id_patient_externe."'>N° ".str_pad($id_patient_externe, 3, "0", STR_PAD_LEFT)."</a></td>";	
+			}
+			else
+			{
+				if ($section<>"solde") 
+				{
+					echo "<td class='center'>N° ".str_pad($pj, 3, "0", STR_PAD_LEFT)."</td>";
+				}
+				else
+				{
+					echo "<td></td>";
+
+				}
+			}
 		echo "<td>".$motif."</td>";
 		if ($type=="entree") 
 		{
@@ -123,7 +151,7 @@ if ($nbr>0)
 	$som_solde=$donnees['0'];
 	$req->closeCursor();
 	echo "<tr class=''>";
-	echo "<td colspan='2' class='trait'><b>TOTAL</b></td>";
+	echo "<td colspan='3' class='trait'><b>TOTAL</b></td>";
 	echo "<td class='trait right-align'><b>".number_format($entree,0,'.',' ')." </b></td>";
 	echo "<td class='trait right-align'><b>".number_format($sortie,0,'.',' ')." </b></td>";
 	echo "<td class='trait right-align'><b>".number_format(($solde),0,'.',' ')." </b></td>";

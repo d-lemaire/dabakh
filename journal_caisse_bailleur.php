@@ -40,7 +40,7 @@ $datefr = $mois[date("n")];
                 <h3 class="center black-text col s12" style="color: white">Bailleur : <?= $prenom." ".$nom ?></h3>
             </div>   
             <div class="row">
-                <select class="browser-default col s2" name="annee">
+                <select class="browser-default col s3" name="annee">
                     <option value="" disabled>--Choisir Annee--</option>
                     <?php
                     while ($donnee=$req->fetch())
@@ -52,7 +52,7 @@ $datefr = $mois[date("n")];
             </div>
             <div class="row">
                 <h4 class="center #0d47a1 col s12" style="color: white">Journal de caisse du mois de :</h4>
-                <h5><select class="browser-default col s4" name="mois" class="mois" style="width: 200px; margin-left: 600px; height: 40px; background-color: white;">
+                <h5><select class="browser-default col s5 m3 offset-m3 l3 offset-l4" name="mois" class="mois" style=" background-color: white;">
                     <?php
                     for ($i=1; $i <= 12; $i++) {
                         echo "<option value='$mois[$i]'";
@@ -64,7 +64,9 @@ $datefr = $mois[date("n")];
                     ?>
                 </select></h5>
             </div>
-
+            <div class="row">
+                <a href="e_mensualite_bailleur.php?id=<?= $_GET['id'] ?>" class="btn">Mensualité</a>
+            </div>
             <div class="row tbody">
                 
                 

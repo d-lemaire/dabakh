@@ -35,7 +35,7 @@ include 'connexion.php';
 	</head>
 	<body style="background-image: url(<?=$image ?>i_mensualite.png);">
 		<a href="" class="btn "  onclick="window.print();">Imprimer</a>
-		<a href="l_bailleur.php" class="btn " >Retour au menu</a>
+		<a href="immobilier.php" class="btn " >Retour au menu</a>
 		
 	
 	<div class="container white">
@@ -75,7 +75,6 @@ include 'connexion.php';
 </body>
 <script type="text/javascript">
 	$(document).ready(function () {
-		window.print();
 	})
 </script>
 <style type="text/css">

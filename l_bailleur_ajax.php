@@ -27,7 +27,7 @@ while ($donnees= $reponse->fetch())
 	$adresse=$donnees['5'];						
 	$annee_inscription=$donnees['6'];
 
-	$req_logement=$db->prepare("SELECT SUM(nbr), SUM(nbr_occupe) FROM `logement` WHERE id_bailleur=?");
+	$req_logement=$db->prepare("SELECT SUM(nbr), SUM(nbr_occupe) FROM `logement` WHERE id_bailleur=? AND logement.etat='actif'");
 	$req_logement->execute(array($id));
 	$donnees_logement=$req_logement->fetch();
 	$nbr=$donnees_logement['0'];
@@ -35,7 +35,7 @@ while ($donnees= $reponse->fetch())
 	$total=$nbr+$nbr_occupe;
 	$req_l_logements=$db->prepare('SELECT logement.designation, type_logement.type_logement, logement.adresse, logement.nbr, logement.nbr_occupe, (logement.nbr+logement.nbr_occupe)
 		FROM bailleur, logement, type_logement
-		WHERE logement.id_type=type_logement.id AND bailleur.id=logement.id_bailleur AND bailleur.id=?');
+		WHERE logement.id_type=type_logement.id AND bailleur.id=logement.id_bailleur  AND bailleur.id=?');
 	
 	echo "<tr>";
 		echo "<td><a class='tooltipped' data-position='top' data-delay='50' data-tooltip='cliquez ici pour modifier' href='m_bailleur.php?id=$id'><i class='material-icons'>edit</i></a><br><br>";

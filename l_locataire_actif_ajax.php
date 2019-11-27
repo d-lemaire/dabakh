@@ -1,6 +1,7 @@
 <?php
 include 'connexion.php';
 $search=$_POST['search'];
+$total=0;
 if ($search=="")
 {
 	$reponse=$db->query("SELECT * FROM `locataire` WHERE statut='actif' 
@@ -27,6 +28,7 @@ $cni=$donnees['4'];
 $num_dossier=$donnees['5'];
 $annee_inscription=$donnees['6'];
 $statut=$donnees['7'];
+++$total;
 echo "<tr>";											
 	echo "<td> <a class='tooltipped' data-position='top' data-delay='50' data-tooltip='cliquez ici pour modifier' href='m_locataire.php?id=$id'><i class='material-icons'>edit</i></a></td>";
 	echo "<td>".str_pad($num_dossier, 3,"0", STR_PAD_LEFT)."/".substr($annee_inscription, -2)."</td>";
@@ -35,5 +37,9 @@ echo "<tr>";
 	echo "<td>".$telephone."</td>";
 	echo "<td> <a href='infos_mens_loc.php?id=$id'>Détail</a></td>";
 echo "</tr>";}
+echo "<tr class='grey'>";
+	echo"<td colspan='3'><b>TOTAL</b></td>";
+	echo"<td colspan='3'><b>".$total." locataires</b></td>";
+echo "</tr>";
 
 ?>

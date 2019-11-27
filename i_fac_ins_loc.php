@@ -96,7 +96,6 @@ WHERE type_logement.id=logement.id_type AND location.id_logement=logement.id AND
 	</body>
 	<script type="text/javascript">
 		$(document).ready(function () {
-			window.print();
 		})
 	</script>
 	<style type="text/css">

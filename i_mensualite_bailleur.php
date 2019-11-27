@@ -69,6 +69,7 @@ include 'connexion.php';
 							FROM mensualite, logement, location, type_logement, locataire
 							WHERE logement.id_type=type_logement.id AND mensualite.id_location=location.id AND location.id_locataire=locataire.id AND location.id_logement=logement.id AND mensualite.id_mensualite_bailleur=?");
 						$req->execute(array($_GET['id']));
+						$sous_total=0;
 						while ($donnees=$req->fetch()) 
 						{
 							
@@ -78,7 +79,7 @@ include 'connexion.php';
 							$montant=$donnees['3'];
 							$mois_locataire=$donnees['4'];
 							$annee_locataire=$donnees['5'];
-							
+							$sous_total=$sous_total+$pu;
 							echo "<tr>";
 							echo "<td><b>".$designation." pour ".$mois_locataire." ".$annee_locataire."</b></td>";	
 							echo "<td>".$type."</td>";	
@@ -97,7 +98,7 @@ include 'connexion.php';
 						
 						echo "<tr class=''>";
 							echo "<td colspan='3'><b>SOUS TOTAL</td></td>";
-							echo "<td>".number_format(($montant_verse+$commission+$total_depense),0,'.',' ')." Fcfa</td>";
+							echo "<td>".number_format(($sous_total),0,'.',' ')." Fcfa</td>";
 						echo "</tr>";
 						echo "<tr class=''>";
 							echo "<td colspan='3'>Commission gérence ".$pourcentage."%</td>";
@@ -152,7 +153,6 @@ include 'connexion.php';
 	</body>
 	<script type="text/javascript">
 		$(document).ready(function () {
-			//window.print();
 		})
 	</script>
 	<style type="text/css">

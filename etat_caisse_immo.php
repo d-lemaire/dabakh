@@ -27,10 +27,19 @@ $datefr = $mois[date("n")];
         <title>Etat de la caisse</title>
         <?php include 'entete.php'; ?>
     </head>
-    <body style="background-image: url(<?=$image ?>etat_caisse_banque.jpg) ">
+    <body id="debut" style="background-image: url(<?=$image ?>etat_caisse_banque.jpg) ">
         <?php
         include 'verification_menu_immo.php';
         ?>
+        <div class="fixed-action-btn">
+          <a class="btn-floating btn-large brown">
+            <i class="large material-icons">import_export</i>
+          </a>
+          <ul>
+            <li><a href="#debut" class="btn-floating green"><i class="material-icons">arrow_upward</i></a></li>
+            <li><a href="#fin" class="btn-floating red darken-1"><i class="material-icons">arrow_downward</i></a></li>
+          </ul>
+        </div>
         <div class="row page">
             <br>
             <div class="col s12   ">
@@ -39,13 +48,13 @@ $datefr = $mois[date("n")];
                     if ($_SESSION['fonction']!="daf")
                     {
                     ?>
-                    <a href="e_caisse_immo.php" class="btn col s8 offset-s1 m2 offset-m1 ">Nouvelle opération</a>
+                    <a href="e_caisse_immo.php" class="btn col s8 offset-s1 m4 offset-m1 l2 offset-l1 ">Nouvelle opération</a>
                     <?php
                     }
                     ?>
-                    <a onclick="window.print()" href="" class="btn col s8 offset-s1  m2 offset-m1">Imprimer</a>
-                    <a href="etat_caisse_journalier_immo.php" class="btn col s8 offset-s3  m2 offset-m1">Caisse journalière</a>
-                    <div class="col s4 input-field white" style="border-radius: 45px">
+                    <a href="etat_caisse_journalier_immo.php" class="btn col s8 offset-s3  m4 offset-m1 l2 offset-l1">Caisse journalière</a>
+                    <a onclick="window.print()" href="" class="btn col s8 offset-s1  m4 offset-m1 l2 offset-l1 hide-on-med-and-down">Imprimer</a>
+                    <div class="col s6 m6 l4 input-field white" style="border-radius: 45px">
                         <i class="material-icons prefix">search</i>
                         <input type="text" name="search" id="search">
                         <label for="search">Recherche</label>
@@ -55,7 +64,7 @@ $datefr = $mois[date("n")];
                 <div class="row" style="margin-top:-20px;">
                     <h4 class="center" style="color: #0d47a1; ">Grand livre caisse du mois de</h4>
                     <h5 class="row">
-                    <select class="browser-default col offset-s3 s3 m2 offset-m4 l2 offset-l4" name="mois" class="mois" style="background-color: transparent;">
+                    <select class="browser-default col s4 offset-s3  m4 offset-m4 l2 offset-l4" name="mois" class="mois" style="background-color: transparent;">
                         <?php
                         for ($i=1; $i <= 12; $i++) {
                         echo "<option value='$i'";
@@ -66,7 +75,7 @@ $datefr = $mois[date("n")];
                         }
                         ?>
                     </select>
-                    <select class="browser-default col s2 offset-s1  m2 offset-m1 l2 offset-l1" name="annee">
+                    <select class="browser-default col s3 offset-s1  m2 offset-m1 l2 offset-l1" name="annee">
                         <option value="" disabled>--Choisir Annee--</option>
                         <?php
                         echo '<option value="'. $annee .'" selected>'. $annee .'</option>';
@@ -74,7 +83,9 @@ $datefr = $mois[date("n")];
                         ?>
                     </select>
                     </h5>
-                    <table class="highlight" >
+                </div>
+                <div class="row">
+                    <table class="highlight col s12 m12 l12"  >
                         <thead>
                             <tr style="color: #0d47a1">
                                 <th >Date</th>
@@ -91,6 +102,7 @@ $datefr = $mois[date("n")];
                 </div>
             </div>
         </div>
+        <span id="fin"></span>
     </body>
     <style type="text/css">
     select {
@@ -135,6 +147,7 @@ $datefr = $mois[date("n")];
     etat_caisse(search)
     });
     $('.tooltipped').tooltip();
+    $('.fixed-action-btn').floatingActionButton();
     });
     </script>
     <style type="text/css">

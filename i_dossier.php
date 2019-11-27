@@ -66,39 +66,6 @@ $num_dossier=str_pad($num_dossier,3,"0",STR_PAD_LEFT)."/".substr($annee_inscript
 		?>
 		<a href="" class="btn" onclick="window.close();">Fermer</a>
 		<div class="container  white" style="padding:  10px">
-			
-			<!--
-			<table>
-				<tr>
-					<td class="" rowspan="5" class="center">
-						<img src="../css/images/logo_sante.jpg" width="140px" height="140px"><br>
-					Parcelles Unités 14 N°348<br>
-					Immeuble BHS 1er étage
-					</td>
-					<td class="center">STRUCTURE SANITAIRE CHERIF OUSSEYNOU LAYE SYSTEME DE MANAGEMENT QUALITE (SMQ)</td>
-					<td>Cabinet d'aides, de soins, de consultation, de médecinegénérale et de soins à domicile</td>
-				</tr>
-				<tr>
-					<td rowspan="3" class="center" height="40px">
-						AUTO : N° 11006  /  11007 / 11008 DU 02/12/09MSP/DS/DM/DMPMTMTMT<br>
-						AUTO : N°16703 DU 20/05/14/MINT/DGAT/DLP/DLA-PA<br>
-						TEL : 33 835 99 49 / 76 330 41 13 / 77 093 87 18 / NINEA : 29374752e6<br>
-						EMAIL : gdiappalm@hotmail.com 
-					</td>
-					<td>Date d'application : 01/01/2019</td>
-				</tr>
-				<tr>
-					<td>Validé par : Administration</td>
-				</tr>
-				<tr>
-					<td>DOSSIER FICHE N° : /19</td>
-				</tr>
-				<tr>
-					<td class="center"><b>FACTURE N°001</b></td>
-					<td>TEL :</td>
-				</tr>
-			</table>
-			-->
 			<div class="row center " >
 				<img class="col s12" src="../css/images/entete.jpg" >
 			</div>

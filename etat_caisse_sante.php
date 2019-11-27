@@ -29,10 +29,34 @@ $datefr = $mois[date("n")];
    <?php include 'entete.php'; ?>
 </head>
 
-<body style="background-image: url(<?=$image ?>etat_caisse_banque.jpg) ;">
+<body id="debut" style="background-image: url(<?=$image ?>etat_caisse_banque.jpg) ;">
     <?php
        include 'verification_menu_sante.php';              
     ?>
+    <div class="fixed-action-btn">
+        <?php
+        if ($_SESSION['fonction']=="infirmier") 
+        {
+            echo '<a class="btn-floating btn-large teal lighten-2">';
+        }
+        if ($_SESSION['fonction']=="medecin" OR $_SESSION['fonction']=="administrateur") 
+        {
+            echo '<a class="btn-floating btn-large teal">';
+        }
+        if ($_SESSION['fonction']=="secretaire") 
+        {
+            echo '<a class="btn-floating btn-large light-blue darken-4">';
+        
+        }
+      ?>
+          
+            <i class="large material-icons">import_export</i>
+          </a>
+          <ul>
+            <li><a href="#debut" class="btn-floating green"><i class="material-icons">arrow_upward</i></a></li>
+            <li><a href="#fin" class="btn-floating red darken-1"><i class="material-icons">arrow_downward</i></a></li>
+          </ul>
+        </div>
     <div class="row page">
             <br>
             <div class="col s12   ">
@@ -93,6 +117,7 @@ $datefr = $mois[date("n")];
                 </div>
             </div>
         </div>
+        <span id="fin"></span>
 </body>
 <style type="text/css">
     select {
@@ -137,6 +162,7 @@ $datefr = $mois[date("n")];
         etat_caisse(search)
             });
         $('.tooltipped').tooltip();
+        $('.fixed-action-btn').floatingActionButton();
     });
 
 </script>

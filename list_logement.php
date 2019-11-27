@@ -17,7 +17,8 @@ $donnees=$req->fetch();
 $bailleur=$donnees['0'];
 $pourcentage=$donnees['1'];
 $req->closeCursor();
-
+$totalLibre=0;
+$totalOccupe=0;
 ?>
 <!DOCTYPE html>
 <html>
@@ -53,9 +54,9 @@ $req->closeCursor();
 						
 						<?php
 						include 'connexion.php';
-						$req=$db->prepare('SELECT CONCAT(bailleur.prenom," ", bailleur.nom), type_logement.type_logement, logement.designation, logement.adresse, logement.nbr, logement.nbr_occupe,(logement.nbr+ logement.nbr_occupe), logement.pu
+						$req=$db->prepare('SELECT CONCAT(bailleur.prenom," ", bailleur.nom), type_logement.type_logement, logement.designation, logement.adresse, logement.nbr, logement.nbr_occupe,(logement.nbr+ logement.nbr_occupe), logement.pu, logement.id
 						FROM bailleur, logement, type_logement
-						WHERE bailleur.id=logement.id_bailleur AND logement.id_type=type_logement.id AND bailleur.id=?');
+						WHERE bailleur.id=logement.id_bailleur AND logement.id_type=type_logement.id AND bailleur.id=? and logement.etat="actif"');
 						$req->execute(array($_GET['id']));
 						$resultat=$req->rowCount();
 						while ($donnees= $req->fetch())
@@ -69,17 +70,25 @@ $req->closeCursor();
 						$nbr_total=$donnees['6'];					
 						$pu=$donnees['7'];										
 						echo "<tr>";
-							echo "<td></td>";
+							echo "<td><a href='supprimer_logement_ajax.php?id=".$donnees['8']."'><i class='material-icons red-text'>clear</i></a>&nbsp&nbsp";
+								echo "<a href='a_s_logement.php?id=".$donnees['8']."&amp;nbr=".$donnees['4']."&amp;a=a'>+1</a>&nbsp&nbsp";
+								echo "<a href='a_s_logement.php?id=".$donnees['8']."&amp;nbr=".$donnees['4']."&amp;a=s'>-1</a>&nbsp&nbsp</td>";
 							echo "<td>".$type_logement." : ".$logement."</td>";
 							echo "<td>".$adresse."</td>";
 							echo "<td>".str_pad($nbr, 2,"0",STR_PAD_LEFT)."</td>";
 							echo "<td>".str_pad($nbr_occupe, 2,"0",STR_PAD_LEFT)."</td>";
 							echo "<td>".str_pad($nbr_total, 2,"0",STR_PAD_LEFT)."</td>";
 							echo "<td>".number_format($pu,0,'.',' ')." Fcfa</td>";
-
+							$totalOccupe=$totalOccupe+$nbr_occupe;
+							$totalLibre=$totalLibre+$nbr;
 							
 						echo "</tr>";}
-						
+						echo "<tr>";
+						echo "<td colspan='3'><b>TOTAL</b></td>";
+						echo "<td ><b>".str_pad($totalLibre, 2,"0",STR_PAD_LEFT)."</b></td>";
+						echo "<td ><b>".str_pad($totalOccupe, 2,"0",STR_PAD_LEFT)."</b></td>";
+						echo "<td ><b>".str_pad(($totalLibre+$totalOccupe), 2,"0",STR_PAD_LEFT)."</b></td>";
+						echo "</tr>";
 						?>
 					</tbody>
 				</table>
@@ -108,9 +117,10 @@ $req->closeCursor();
 						
 						<?php
 						include 'connexion.php';
-						$req=$db->prepare("SELECT DISTINCT location.id, CONCAT(locataire.prenom,' ', locataire.nom), CONCAT(type_logement.type_logement,' à ',logement.adresse), location.prix_location FROM logement, locataire, location, bailleur, type_logement WHERE location.id_locataire=locataire.id AND location.id_logement=logement.id AND logement.id_bailleur=bailleur.id AND type_logement.id = logement.id_type AND location.etat='active' AND bailleur.id=?");
+						$req=$db->prepare("SELECT DISTINCT location.id, CONCAT(locataire.prenom,' ', locataire.nom), CONCAT(type_logement.type_logement,' à ',logement.adresse), location.prix_location FROM logement, locataire, location, bailleur, type_logement WHERE location.id_locataire=locataire.id AND location.id_logement=logement.id AND logement.id_bailleur=bailleur.id AND type_logement.id = logement.id_type AND location.etat='active' AND bailleur.id=? order by location.prix_location ASC");
 						$req->execute(array($_GET['id']));
 						$resultat=$req->rowCount();
+						$i=0;
 						while ($donnees= $req->fetch())
 						{
 						$id=$donnees['0'];					
@@ -118,7 +128,8 @@ $req->closeCursor();
 						$logement=$donnees['2'];					
 						$prix_location=$donnees['3'];							
 						echo "<tr>";
-							echo "<td></td>";
+						$i=$i+1;
+							echo "<td class=' grey white-text'><a href='i_contrat_location.php?id=".$id."'>".($i)."</a></td>";
 							echo "<td>".$locataire."</td>";
 							echo "<td>".$logement."</td>";
 							echo "<td>".number_format($prix_location,0,'.',' ')." Fcfa</td>";

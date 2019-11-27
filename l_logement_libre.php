@@ -4,18 +4,27 @@
 		<title>Liste logements libres</title>
 		<?php include 'entete.php'; ?>
 	</head>
-	<body style=" background-image: url(<?=$image ?>l_logement_libre.jpg) ;">
+	<body id="debut" style=" background-image: url(<?=$image ?>l_logement_libre.jpg) ;">
 		<?php
 		include 'verification_menu_immo.php';
 		?>
+		<div class="fixed-action-btn">
+	      <a class="btn-floating btn-large brown">
+	        <i class="large material-icons">import_export</i>
+	      </a>
+	      <ul>
+	        <li><a href="#debut" class="btn-floating green"><i class="material-icons">arrow_upward</i></a></li>
+	        <li><a href="#fin" class="btn-floating red darken-1"><i class="material-icons">arrow_downward</i></a></li>
+	      </ul>
+	    </div>
 		<div class="row">
 			<h3 class="center col s12 white-text" >Liste des logements libres</h3>
-			<div class="col s4 input-field white" style="border-radius: 45px">
+			<div class="col s6 m4 l4 input-field white" style="border-radius: 45px">
 				<i class="material-icons prefix">search</i>
 				<input type="text" name="search" id="search">
 				<label for="search">Prénom / Nom</label>
 			</div>
-			<div class="col s12   ">
+			<div class="col s12 m12 l12  ">
 				<table class="bordered highlight centered striped">
 					<thead>
 						<tr style="color: #0d47a1">
@@ -33,7 +42,7 @@
 				</table>
 			</div>
 		</div>
-		
+		<span id="fin"></span>
 	</body>
 	<script type="text/javascript">
 		$(document).ready(function(){
@@ -56,6 +65,7 @@
 			l_logement_libre(search)
 				});
 			$('.tooltipped').tooltip();
+			$('.fixed-action-btn').floatingActionButton();
 	});
 	</script>
 	<style type="text/css">

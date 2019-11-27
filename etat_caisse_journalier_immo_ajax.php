@@ -45,7 +45,7 @@ echo"<tr>";
     echo "<td class='right-align'>".number_format($solde_jour_j,0,'.',' ')." </td>";
 echo"<tr>";
     
-$req=$db->prepare("SELECT id, CONCAT(DATE_FORMAT(date_operation, '%d'), '/', DATE_FORMAT(date_operation, '%m'),'/', DATE_FORMAT(date_operation, '%Y')), motif, type, montant, section
+$req=$db->prepare("SELECT id, CONCAT(DATE_FORMAT(date_operation, '%d'), '/', DATE_FORMAT(date_operation, '%m'),'/', DATE_FORMAT(date_operation, '%Y')), motif, type, montant, id_mensualite,section, id_mensualite_bailleur, id_depense_bailleur, id_user, id_depense_locataire,pj, id_location
 FROM `caisse_immo`
 WHERE month(date_operation)=? AND year(date_operation)=? AND date_operation BETWEEN ? AND ? ORDER BY date_operation, id ASC,  section");
 $req->execute(array($mois, $annee, $jour_d, $jour_f));
@@ -58,11 +58,18 @@ if ($nbr>0)
 	while ($donnees= $req->fetch())
 	{
 		$id=$donnees['0'];
-		$date_operation=$donnees['1'];
-		$motif=$donnees['2'];
-        $type=$donnees['3'];
-		$montant=$donnees['4'];
-		$section=$donnees['5'];
+			$date_operation=$donnees['1'];
+			$motif=$donnees['2'];
+	        $type=$donnees['3'];
+			$montant=$donnees['4'];
+			$id_mensualite=$donnees['5'];
+			$section=$donnees['6'];
+			$id_mensualite_bailleur=$donnees['7'];
+			$id_depense_bailleur=$donnees['8'];
+			$id_user=$donnees['9'];
+			$id_depense_locataire=$donnees['10'];
+			$pj=$donnees['11'];
+			$id_location=$donnees['12'];
 		if ($type=='entree') 
 		{
 			echo "<tr class='brown lighten-4'>";
@@ -76,6 +83,37 @@ if ($nbr>0)
 			echo "<tr>";
 		}
 		echo "<td>". $date_operation. "</td>";
+		
+		//Affichage des pièces jointes
+		if (isset($id_mensualite)) 
+			{
+				echo "<td class='center'>N° ".str_pad($id_mensualite, 3, "0", STR_PAD_LEFT)."</td>";	
+			}
+		elseif (isset($id_depense_bailleur)) 
+			{
+				echo "<td class='center'>N° ".str_pad($id_depense_bailleur, 3, "0", STR_PAD_LEFT)."</td>";						
+			}
+		elseif (isset($id_mensualite_bailleur)) 
+			{
+				echo "<td class='center'>N° ".str_pad($id_mensualite_bailleur, 3, "0", STR_PAD_LEFT)."</td>";	
+			}
+			elseif (isset($id_location)) 
+			{
+				echo "<td class='center'>N° ".str_pad($id_location, 3, "0", STR_PAD_LEFT)."</td>";	
+			}
+		else
+			{
+				if ($section<>"solde") 
+				{
+					echo "<td class='center'>N° ".str_pad($pj, 3, "0", STR_PAD_LEFT)." </td>";
+				}
+				else
+				{
+					echo "<td></td>";
+
+				}
+				
+			}
 		echo "<td>".$motif."</td>";
 		if ($type=="entree") 
 		{
@@ -120,7 +158,7 @@ if ($nbr>0)
 	$som_solde=$donnees['0'];
 	$req->closeCursor();
 	echo "<tr class=''>";
-	echo "<td colspan='2' class='trait'><b>TOTAL</b></td>";
+	echo "<td colspan='3' class='trait'><b>TOTAL</b></td>";
 	echo "<td class='trait right-align'><b>".number_format($entree,0,'.',' ')." </b></td>";
 	echo "<td class='trait right-align'><b>".number_format($sortie,0,'.',' ')." </b></td>";
 	echo "<td class='trait right-align'><b>".number_format(($solde),0,'.',' ')." </b></td>";

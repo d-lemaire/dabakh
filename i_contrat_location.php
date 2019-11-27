@@ -45,10 +45,11 @@ ORDER BY location.date_debut DESC');
 	<div class="container white">
 		<div class="row center white" style="margin-bottom: 1px" >
 			<img class="col s8 offset-s2" src="../css/images/entete_immo.jpg" >
-			<p class="col s12 right-align" style="font-family: 'times new roman'; font-size: 8px"><?=$id_user ?></p>
+			<p class="col s6 left-align" style="font-family: 'times new roman'; font-size: 8px">Imprimé le <?=$date_actuelle ?></p>
+			<p class="col s6 right-align" style="font-family: 'times new roman'; font-size: 8px"><?=$id_user ?></p>
 		</div>
 		<div class="row">
-			<h4 class="col s12 center"><b>CONTRAT DE LOCATION - <?=strtoupper($type_location) ?></b></h4>
+			<h5 class="col s12 center"><b>CONTRAT DE LOCATION - <?=strtoupper($type_location) ?></b></h5>
 			<div class="col s12" style="font: 12pt 'times new roman';">
 				Entre les soussignés :
 				<br>
@@ -79,7 +80,7 @@ ORDER BY location.date_debut DESC');
 				<?=nl2br($part2) ?>
 			</div>
 			<h6 class="col s12 right-align ">
-			Fait le <b><?=$date_actuelle ?></b>
+			Fait le <b><?=$date_debut ?></b>
 			</h6>
 			<h6 class="col s6 left-align center"><b>Visas du locataire <br><br><br>Lu et approuvé</b></h6>
 			<h6 class="col s6 right-align"><b>Visa du cabinet</b></h6>
@@ -89,7 +90,6 @@ ORDER BY location.date_debut DESC');
 </body>
 <script type="text/javascript">
 	$(document).ready(function () {
-		window.print();
 	})
 </script>
 <style type="text/css">

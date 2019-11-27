@@ -28,7 +28,7 @@ $datefr = $mois[date("n")];
     <title>Etat de la banque</title>
    <?php include 'entete.php'; ?>
 </head>
-<body style="background-image: url(<?=$image ?>etat_banque.jpg) ;">
+<body id="debut" style="background-image: url(<?=$image ?>etat_banque.jpg) ;">
     <?php 
         if ($_SESSION['service']=="immobilier") 
         {
@@ -40,16 +40,29 @@ $datefr = $mois[date("n")];
         }
 
          ?>
+     <div class="fixed-action-btn">
+      <a class="btn-floating btn-large brown">
+        <i class="large material-icons">import_export</i>
+      </a>
+      <ul>
+        <li><a href="#debut" class="btn-floating green"><i class="material-icons">arrow_upward</i></a></li>
+        <li><a href="#fin" class="btn-floating red darken-1"><i class="material-icons">arrow_downward</i></a></li>
+      </ul>
+    </div>
    <div class="row page">
             <br>
             <div class="col s12   ">
                 <div class="row">
                     <?php
-                    if ($_SESSION['fonction']!="daf")
+                    if ($_SESSION['fonction']=="daf" OR $_SESSION['fonction']=="administrateur")
                     {
-                    ?>
-                    <a href="banque.php" class="btn col s8 offset-s1 m2 offset-m1 ">Nouvelle opération</a>
-                    <?php
+                        if ($_SESSION['service']=="immobilier") 
+                        {
+                        ?>
+                        <a href="banque.php" class="btn col s8 offset-s1 m2 offset-m1 ">Nouvelle opération</a>
+                        <?php
+                            
+                        }
                     }
                     ?>
                     <a onclick="window.print()" href="" class="btn col s8 offset-s1  m2 offset-m1">Imprimer</a>
@@ -101,7 +114,7 @@ $datefr = $mois[date("n")];
                 </div>
             </div>
         </div>
-
+        <span id="fin"></span>
 </body>
 <style type="text/css">
     select {
@@ -142,6 +155,7 @@ $datefr = $mois[date("n")];
            
         });
         $('.tooltipped').tooltip();
+        $('.fixed-action-btn').floatingActionButton();
     });
 
 </script>
@@ -164,7 +178,7 @@ $datefr = $mois[date("n")];
     }
     
     @media print {
-    .btn, .input-field {
+    .btn, .input-field, .fixed-action-btn {
     display: none;
     }
     nav {

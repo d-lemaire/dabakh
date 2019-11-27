@@ -27,7 +27,7 @@ $datefr = $mois[date("n")];
 		?>
 		<br>
 		<div class="row">
-			<select class="browser-default col s3 m2" name="annee">
+			<select class="browser-default col s4 m2 l2" name="annee">
 				<option value="" disabled>--Choisir Annee--</option>
 				<?php
 				while ($donnee=$req_annee->fetch())
@@ -36,20 +36,20 @@ $datefr = $mois[date("n")];
 				}
 				?>
 			</select>
-			<div class="col s4 offset-s2 input-field white" style="border-radius: 45px">
+			<div class="col s6 offset-s1 m5 offset-m2 l5 offset-l2 input-field white" style="border-radius: 45px">
 				<i class="material-icons prefix">search</i>
 				<input type="text" name="search" id="search">
 				<label for="search">Consommable</label>
 			</div>
 		</div>
 		<div class="row">
-			<h4 class="center #0d47a1 col s12" style="color: white">Ravitaillement effectués pendant le mois de :</h4>
+			<h4 class="center #0d47a1 col s12" style="color: white">Ravitaillement effectués pendant le mois de : </h4>
 			 <?php
 		      if (($_SESSION['fonction']=='medecin') OR ($_SESSION['fonction']=='administrateur') OR ($_SESSION['fonction']=='secretaire'))
 		      {
 		        ?>
 		      <li>
-		        <a href="consommable.php" class="btn col s12 m2">Nouveau ravitaillement</a>
+		        <a href="consommable.php" class="btn col s8 m3 l3">Nouveau ravitaillement</a>
 		      </li>
 		      <?php
 		      
@@ -57,7 +57,7 @@ $datefr = $mois[date("n")];
 		     
 		        ?>
 			
-			<h5><select class="browser-default col s12 m2 offset-m2" name="mois" class="mois" style="background-color: white;">
+			<h5><select class="browser-default col s8 offset-s3 m2 offset-m2" name="mois" class="mois" style="background-color: white;">
 				<?php
 				for ($i=1; $i <= 12; $i++) {
 					echo "<option value='$i'";

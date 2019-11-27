@@ -65,18 +65,19 @@ if ($result<1) {$verif=4;}
 $req->closeCursor();
 //FIN
 
-
+//Insertion de la commission
 $motif="Commision locataire ".$prenom." ".$nom;
-$req=$db->prepare('INSERT INTO caisse_immo (type, section, motif, date_operation, montant, id_location, id_user) VALUES ("entree","Commision",?,?,?,?,?)');
-$req->execute(array($motif, $date_debut, $commision, $id_location, $id_user)) or die($req->errorInfo());
+$req=$db->prepare('INSERT INTO caisse_immo (type, section, motif, date_operation, montant, id_location, id_user, pj) VALUES ("entree","Commision",?,?,?,?,?, ?)');
+$req->execute(array($motif, $date_debut, $commision, $id_location, $id_user, $id_location)) or die($req->errorInfo());
 if ($result<1) {$verif=5;}
 $req->closeCursor();
 
+//Insertion de la caution
 $motif="Caution locataire ".$prenom." ".$nom;
 $req=$db->prepare('INSERT INTO caisse_caution (type, section, motif, date_operation, montant, id_location, id_user) VALUES ("entree","Caution",?,?,?,?,?)');
 $req->execute(array($motif, $date_debut, $caution, $id_location, $id_user)) or die($req->errorInfo());
-$req=$db->prepare('INSERT INTO caisse_immo (type, section, motif, date_operation, montant, id_location, id_user) VALUES ("entree","Caution",?,?,?,?,?)');
-$req->execute(array($motif, $date_debut, $commision, $id_location, $id_user)) or die($req->errorInfo());
+$req=$db->prepare('INSERT INTO caisse_immo (type, section, motif, date_operation, montant, id_location, id_user, pj) VALUES ("entree","Caution",?,?,?,?,?,?)');
+$req->execute(array($motif, $date_debut, $caution, $id_location, $id_user, $id_location)) or die($req->errorInfo());
 //premier mensualite
 $reponse=$db->query('SELECT MAX(id) FROM mensualite');
 $donnee=$reponse->fetch();
@@ -98,11 +99,8 @@ $nbr=$req->rowCount();
 $req->closeCursor();
 
 $motif="Avance premier mois loyer ".$prenom." ".$nom;
-$req=$db->prepare('INSERT INTO caisse_immo (type, section, motif, date_operation, montant, id_location, id_user) VALUES ("entree","Reglement facture",?,?,?,?,?)');
-$req->execute(array($motif, $date_debut, $mensualite, $id_location, $id_user)) or die($req->errorInfo());
-//$motif="Mensualité du locataire ".$prenom." ".$nom;
-//$req=$db->prepare('INSERT INTO caisse_immo (type, section, motif, date_operation, montant, id_location) VALUES ("entree","Reglement facture",?,?,?,?)');
-//$req->execute(array($motif, $date_debut, $caution, $id_location)) or die($req->errorInfo());
+$req=$db->prepare('INSERT INTO caisse_immo (type, section, motif, date_operation, montant, id_location, id_user, pj) VALUES ("entree","Reglement facture",?,?,?,?,?,?)');
+$req->execute(array($motif, $date_debut, $mensualite, $id_location, $id_user,$id_location)) or die($req->errorInfo());
 if ($result<1) {$verif=6;}
 
 if ($verif==0) 

@@ -46,6 +46,7 @@ $datefr = $mois[date("n")];
                 <thead>
                     <tr style="color: #0d47a1">
                         <th data-field="" class="trait">Date</th>
+                        <th data-field="" class="trait">PJ&nbsp&nbsp</th>
                         <th data-field="" class="trait">Libellé</th>
                         <th data-field="" class="compte">Débit</th>
                         <th data-field="" class="compte">Crédit</th>

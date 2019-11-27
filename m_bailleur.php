@@ -130,7 +130,7 @@ $req_type_logement=$db->query("SELECT * FROM type_logement");
 							</thead>
 						<tbody>
 							<?php
-								$req=$db->prepare("SELECT logement.id, logement.designation, type_logement.type_logement, logement.pu, logement.nbr, logement.adresse 
+								$req=$db->prepare("SELECT logement.id, logement.designation, type_logement.type_logement, logement.pu, logement.nbr, logement.adresse , logement.nbr_occupe
 									FROM logement, type_logement 
 									WHERE logement.id_type=type_logement.id AND logement.etat='actif' AND logement.id_bailleur=?") or die(print_r($req->errorInfo()));
 									$req->execute(array($_GET['id']));
@@ -142,7 +142,7 @@ $req_type_logement=$db->query("SELECT * FROM type_logement");
 										echo "<td>".$donnees['1']."</td>";
 										echo "<td>".$donnees['2']."</td>";
 										echo "<td>".$donnees['3']."</td>";
-										echo "<td>".$donnees['4']."</td>";
+										echo "<td>".($donnees['4']+ $donnees['6'])."</td>";
 										echo "<td>".$donnees['5']."</td>";
 										echo "<td><a href='supprimer_logement_ajax.php?id=".$donnees['0']."'><i class='material-icons red-text'>clear</i></a></td>";
 										echo "<td><a href='a_s_logement.php?id=".$donnees['0']."&amp;nbr=".$donnees['4']."&amp;a=a'>+1</a></td>";

@@ -1,5 +1,6 @@
 <?php
 include 'connexion.php';
+$total=0;
 if ($_POST['search']=="") 
 {
 	$db->query("SET lc_time_names = 'fr_FR';");
@@ -23,7 +24,8 @@ $logement=$donnees['2'];
 $type_logement=$donnees['3'];					
 $adresse=$donnees['4'];									
 $pu=$donnees['5'];					
-$nbr=$donnees['6'];					
+$nbr=$donnees['6'];	
+++$total;				
 echo "<tr>";
 	echo "<td></td>";
 	echo "<td>".$bailleur."</td>";
@@ -34,6 +36,10 @@ echo "<tr>";
 	echo "<td>".number_format($pu,0,'.',' ')." Fcfa</td>";
 echo "</tr>";
 }
+echo "<tr class='grey'>";
+	echo"<td colspan='3'><b>TOTAL</b></td>";
+	echo"<td colspan='3'><b>".$total." logements libres</b></td>";
+echo "</tr>";
 if ($resultat<1)
 {
 	echo "<h3 class='center'>Aucun résultat</h3>";

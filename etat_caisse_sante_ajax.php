@@ -48,24 +48,25 @@ if ($search=="")
 			{
 				echo "<td>". $date_operation. "</td>";
 			}
-
+			
+			//Affichage des pièces jointes
 			if (isset($id_consultation)) 
 			{
-				echo "<td class='center'><a target='_blank' href='i_facture_cons.php?id=".$id_consultation."'>N° ".$id_consultation."</a></td>";	
+				echo "<td class='center'><a target='_blank' href='i_facture_cons.php?id=".str_pad($id_consultation, 3, "0", STR_PAD_LEFT)."'>N° ".$id_consultation."</a></td>";	
 			}
 			elseif (isset($id_consultation_domicile)) 
 			{
-				echo "<td class='center'><a target='_blank' href='i_facture_cons_d.php?id=".$id_consultation_domicile."'>N° ".$id_consultation_domicile."</a></td>";	
+				echo "<td class='center'><a target='_blank' href='i_facture_cons_d.php?id=".$id_consultation_domicile."'>N° ".str_pad($id_consultation_domicile, 3, "0", STR_PAD_LEFT)."</a></td>";	
 			}
 			elseif (isset($id_patient_externe)) 
 			{
-				echo "<td class='center'><a target='_blank' href='i_fac_autres_soins.php?id=".$id_patient_externe."'>N° ".$id_patient_externe."</a></td>";	
+				echo "<td class='center'><a target='_blank' href='i_fac_autres_soins.php?id=".$id_patient_externe."'>N° ".str_pad($id_patient_externe, 3, "0", STR_PAD_LEFT)."</a></td>";	
 			}
 			else
 			{
 				if ($section<>"solde") 
 				{
-					echo "<td>N° ".$pj."</td>";
+					echo "<td>N° ".str_pad($pj, 3, "0", STR_PAD_LEFT)."</td>";
 				}
 				else
 				{

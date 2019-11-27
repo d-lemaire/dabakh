@@ -1,6 +1,7 @@
 <?php
 include 'connexion.php';
 $search=$_POST['search'];
+$total=0;
 if ($search=="")
 {
 	$reponse=$db->query("SELECT * FROM `locataire` WHERE statut='inactif' 
@@ -27,6 +28,7 @@ $cni=$donnees['4'];
 $num_dossier=$donnees['5'];
 $annee_inscription=$donnees['6'];
 $statut=$donnees['7'];
+++$total;
 echo "<tr>";											
 	echo "<td> <a class='tooltipped' data-position='top' data-delay='50' data-tooltip='cliquez ici pour modifier' href='m_locataire.php?id=$id'><i class='material-icons'>edit</i></a></td>";
 	echo "<td>".str_pad($num_dossier, 3,"0", STR_PAD_LEFT)."/".substr($annee_inscription, -2)."</td>";
@@ -37,5 +39,8 @@ echo "<tr>";
 	echo "<td><a class='red btn' href='s_locataire.php?id=".$id."' onclick='return(confirm(\"Voulez-vous supprimer ce locataire ?\"))'>Supprimer </a></td>";
 	echo "<td><a class='brown btn' href='e_location.php?id=".$id."' onclick='return(confirm(\"Voulez-vous réactiver ce locataire ?\"))'>Réactiver </a></td>";
 echo "</tr>";}
-
+echo "<tr class='grey'>";
+	echo"<td colspan='3'><b>TOTAL</b></td>";
+	echo"<td colspan='3'><b>".$total." locataires</b></td>";
+echo "</tr>";
 ?>

@@ -22,10 +22,19 @@ $datefr = $mois[date("n")];
 		<title>Liste mensualités payé</title>
 		 <?php include 'entete.php'; ?>
 	</head>
-	<body style="background-image: url(<?=$image ?>l_mensualite.jpg) ;">
+	<body id="debut" style="background-image: url(<?=$image ?>l_mensualite.jpg) ;">
 		<?php
 		include 'verification_menu_immo.php';
 		?>
+		<div class="fixed-action-btn">
+	      <a class="btn-floating btn-large brown">
+	        <i class="large material-icons">import_export</i>
+	      </a>
+	      <ul>
+	        <li><a href="#debut" class="btn-floating green"><i class="material-icons">arrow_upward</i></a></li>
+	        <li><a href="#fin" class="btn-floating red darken-1"><i class="material-icons">arrow_downward</i></a></li>
+	      </ul>
+	    </div>
 		<br>
 		<div class="row">
 			<select class="browser-default col s4 m2" name="annee">
@@ -83,7 +92,7 @@ $datefr = $mois[date("n")];
 				</tbody>
 			</table>
 		</div>
-		
+		<span id="fin"></span>
 	</body>
 	<style type="text/css">
 		
@@ -95,6 +104,7 @@ $datefr = $mois[date("n")];
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$('.tooltipped').tooltip();
+			$('.fixed-action-btn').floatingActionButton();
 			function l_mensualite_paye()
 			{
 				var mois = $('select:eq(2)').val();

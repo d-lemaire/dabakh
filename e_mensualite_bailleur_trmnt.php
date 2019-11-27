@@ -17,17 +17,6 @@ $type_paiement=htmlspecialchars($_POST['type_paiement']);
 $num_cheque=htmlspecialchars($_POST['num_cheque']);
 $mois_a_payer=$_POST['mois_a_payer'];
 $id_user=$_SESSION['prenom']." ".$_SESSION['nom'];
-if ($montant==0) 
-{
-	?>
-	<script type="text/javascript">
-		alert('Erreur : Montant vide');
-		window.history.go(-1);
-	</script>
-	<?php
-}
-else
-{
 
 	$reponse=$db->query('SELECT MAX(id) FROM mensualite_bailleur');
 	$donnee=$reponse->fetch();
@@ -64,7 +53,7 @@ else
 
 	$req=$db->prepare("SELECT mensualite.id
 	FROM mensualite, logement, bailleur, location, type_logement
-	WHERE logement.id_type=type_logement.id AND mensualite.id_location=location.id AND location.id_logement=logement.id AND logement.id_bailleur=bailleur.id AND mensualite.mois=? AND mensualite.annee=? AND bailleur.id=?"); 
+	WHERE logement.id_type=type_logement.id AND mensualite.id_location=location.id AND location.id_logement=logement.id AND logement.id_bailleur=bailleur.id AND mensualite.mois=? AND mensualite.annee=? AND bailleur.id=? AND mensualite.id_mensualite_bailleur=0"); 
 	$req->execute(array($mois, $annee, $_GET['id']));
 	while ($donnees=$req->fetch()) 
 	{
@@ -75,9 +64,10 @@ else
 
 	//sélection des dépenses et update des id_mensualite_bailleur
 	$req=$db->prepare("SELECT depense_bailleur.id 
-FROM `depense_bailleur`
-WHERE depense_bailleur.mois=? AND depense_bailleur.annee=? AND depense_bailleur.id_bailleur=? AND depense_bailleur.id_bailleur>0"); 
+	FROM `depense_bailleur`
+	WHERE depense_bailleur.mois=? AND depense_bailleur.annee=? AND depense_bailleur.id_bailleur=? AND depense_bailleur.id_bailleur>0"); 
 	$req->execute(array( $mois, $annee, $_GET['id']));
+	
 	while ($donnees=$req->fetch()) 
 	{
 		$req_update=$db->prepare('UPDATE depense_bailleur SET id_mensualite_bailleur=? WHERE id=?');
@@ -119,5 +109,4 @@ WHERE depense_bailleur.mois=? AND depense_bailleur.annee=? AND depense_bailleur.
 	</script>
 	<?php
 	}
-}
 

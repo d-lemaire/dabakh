@@ -54,7 +54,7 @@ $req->closeCursor();
   <li><a href="l_constante.php">Liste des constantes</a></li>
 </ul>
 
-<!-- Dropdown Structure services et produits -->
+<!-- Dropdown Structure prescription -->
 <ul id="prescription" class="dropdown-content">
   <?php
     if (($_SESSION['fonction']=='administrateur') OR ($_SESSION['fonction']=='medecin'))
@@ -339,171 +339,155 @@ $req->closeCursor();
   </div>
 </nav>
 
+<!-- Mobile -->
 <ul class="sidenav" id="mobile-demo">
+  <li><a href="sante.php"><b>Accueil</b></a></li>
+ 
+ <li><b>Soins</b></li>
+<li><a href="l_analyse.php">Autres soins dispensés</a></li>
+<li><a href="l_consultation_d.php">Soins à domicile</a></li>
+<?php
+if (($_SESSION['fonction']=='administrateur') OR ($_SESSION['fonction']=='medecin') OR ($_SESSION['fonction']=='daf'))
+{
+  ?>
+  <li><a href="l_rapport_assis.php">Rapport d'assistance</a></li>
+  <?php    
+}
+if (($_SESSION['fonction']=='medecin') OR ($_SESSION['fonction']=='administrateur') OR ($_SESSION['fonction']=='infirmier'))
+{
+?>
+<li><b>Constantes</b></li>
+<li><a href="l_patient_constante.php">Enregistrer</a></li>
+<li><a href="l_constante.php">Liste des constantes</a></li> 
+
+<li><b>Prescriptions</b><?php if ($nbr_prescription>0) {echo'<span class="new badge red">'.$nbr_prescription.'</span>';}?></li>
+<?php
+if (($_SESSION['fonction']=='administrateur') OR ($_SESSION['fonction']=='medecin'))
+{
+  ?>
+  <li><a href="e_prescription1.php">Nouvelle Prescription</a></li>
+  <?php    
+}
+?>
+<li><a href="l_prescription.php">Liste prescription</a></li>
+<?php    
+}
+
+if (($_SESSION['fonction']=='secretaire') OR ($_SESSION['fonction']=='administrateur') OR ($_SESSION['fonction']=='daf'))
+{
+  ?>
+  <li><b>Finances</b></li>
   <?php
-      if (($_SESSION['fonction']=='medecin') OR ($_SESSION['fonction']=='administrateur') OR ($_SESSION['fonction']=='infirmier'))
-      {
-        ?>
-      <li><a href="l_patient_cons_d.php?p=sd">Enregistrer</a></li>
-  <li><a href="l_consultation_d.php">Soins effectués</a></li>
-
-      <?php
-      }
-      if (($_SESSION['fonction']=='medecin') OR ($_SESSION['fonction']=='administrateur') OR ($_SESSION['fonction']=='infirmier') OR ($_SESSION['fonction']=='secretaire'))
-        {
-          ?>
-      <?php
-      if  (($_SESSION['fonction']=='administrateur') OR ($_SESSION['fonction']=='medecin') OR ($_SESSION['fonction']=='infirmier'))
-      {
-        ?>
-     <li><a href="e_analyse.php">Ajouter</a></li>
-
-        <?php
-      }
-      ?>
-  <li><a href="l_analyse.php">Autres soins dispensés</a></li>  <?php
-      if  (($_SESSION['fonction']=='administrateur') OR ($_SESSION['fonction']=='medecin') OR ($_SESSION['fonction']=='infirmier'))
-      {
-        ?>
-     <li><a href="e_analyse.php">Ajouter</a></li>
-
-        <?php
-      }
-      ?>
-  <li><a href="l_analyse.php">Autres soins dispensés</a></li>
-        <?php
-        }
-      if (($_SESSION['fonction']=='medecin') OR ($_SESSION['fonction']=='administrateur') OR ($_SESSION['fonction']=='infirmier'))
-      {
-        ?>
-         <li><a href="l_patient_constante.php">Enregistrer</a></li>
-  <li><a href="l_constante.php">Liste des constantes</a></li>
-        <?php
-      if (($_SESSION['fonction']=='administrateur') OR ($_SESSION['fonction']=='medecin'))
-      {
-        ?>
-        <li><a href="e_prescription1.php">Nouvelle Prescription</a></li>
-        <?php    
-      }
-      ?>
-  <li><a href="l_prescription.php">Liste prescription</a></li>
-        <?php  
-      } 
-      if (($_SESSION['fonction']=='secretaire') OR ($_SESSION['fonction']=='administrateur') OR ($_SESSION['fonction']=='daf'))
-      {
-        ?>
-         <?php
-      if ($_SESSION['fonction']=='secretaire' OR $_SESSION['fonction']=='daf')
-      {
-        ?>
-        <li><a href="e_caisse_sante.php">Nouvelle opération</a></li>
-        <?php    
-      }
-      ?>
-    <li><a href="etat_caisse_sante.php">Etat caisse</a></li>
-    <?php
-    if ($_SESSION['fonction']=='administrateur') 
-    {
-      ?>
-      <li><a href="banque.php">Nouvelle opération</a></li>
-      <li><a href="etat_banque.php">Etat banque</a></li>  
-      <?php  
-    }
-    
+  if ($_SESSION['fonction']=='secretaire' OR $_SESSION['fonction']=='daf')
+  {
     ?>
-        <?php  
-      }       
-      if ($_SESSION['fonction']=='secretaire') 
-      {
-        ?>
-         <li><a href="analyse.php">Analyse</a></li>
-        <li><a href="consultation.php">Consultations</a></li>
-        <li><a href="hospitalisation.php">Hospitalisation</a></li>
-        <li><a href="produit.php">Produits</a></li>
-        <li><a href="soins_externes.php">Soins externes</a></li>
-        <li><a href="soins_domicile.php">Soins à domicile</a></li>
-        <?php
-      }
-      if (($_SESSION['fonction']=='medecin') OR ($_SESSION['fonction']=='administrateur') OR ($_SESSION['fonction']=='infirmier') OR ($_SESSION['fonction']=='secretaire'))
-      {
-      ?>
-      <li>
-        <a  href="l_attente.php">
-          Liste d'attente
-          <?php
-            if ($nbr>0) {
-              echo'<span class="new badge red">'.$nbr.'</span>';
-            }
-          ?>
-        </a> 
-      </li>
-      <?php
-      }
-      if ($_SESSION['fonction']=='secretaire') 
-      {
-        ?>
-         <li><a href="l_d_regularisation.php">Régularisation</a></li>
-  <li><a href="l_d_consultation.php">Consultation</a></li>
+    <li><a href="e_caisse_sante.php">Nouvelle opération</a></li>
+    <?php    
+  }
+  ?>
+  <li><a href="etat_caisse_sante.php">Etat caisse</a></li>
   <?php
-      }
-      ?>
-      
-      <?php
-      if ($_SESSION['fonction']=='secretaire') 
+  if ($_SESSION['fonction']=='administrateur') 
+  {
+  ?>
+
+  <li><a href="etat_banque.php">Etat banque</a></li>  
+  <?php  
+  }
+}
+?>
+
+<?php
+if ($_SESSION['fonction']=='secretaire') 
+{
+?>
+<li><b>Services et produits</b></li>
+<li><a href="analyse.php">Analyse</a></li>
+<li><a href="consultation.php">Consultations</a></li>
+<li><a href="hospitalisation.php">Hospitalisation</a></li>
+<li><a href="produit.php">Produits</a></li>
+<li><a href="l_ravitaillement_produit.php">Ravitaillement produit</a></li>
+<li><a href="soins_externes.php">Soins externes</a></li>
+<li><a href="soins_domicile.php">Soins à domicile</a></li>
+<?php
+}
+?>
+
+<?php
+  if ($_SESSION['fonction']=='secretaire') 
+  {
+ ?>
+<li><b>Rendez-vous</b></li>
+<li><a href="l_d_regularisation.php">Régularisation</a></li>
+<li><a href="l_d_consultation.php">Consultation</a></li>
+<?php
+}
+?>
+
+<li><b>Rendez-vous</b></li>
+<li><a href="n_patient_rdv.php">Nouveau rendez-vous</a></li>
+<li><a href="l_rdv">Liste des rendez-vous</a></li>
+
+<li><b>Consultations</b></li>
+<?php
+  if ($_SESSION['fonction']=='secretaire' OR $_SESSION['fonction']=='infirmier') 
+  {
+    echo '<li><a href="l_patient_cons.php">Nouvelle consultation</a></li>';
+  }
+  ?>
+<li><a href="l_consultation.php">Liste des consultations</a></li>
+
+<li><b>Patient</b></li>
+<?php
+if ($_SESSION['fonction']=='secretaire' OR $_SESSION['fonction']=='infirmier' OR $_SESSION['fonction']=='administrateur') 
+{
+  echo '<li><a href="e_patient.php">Nouveau dossier</a></li>';
+}
+?>
+<li><a href="l_patient.php">Liste des patients</a></li>
+
+
+<?php
+if ($_SESSION['fonction']=='administrateur') 
+{
+?>
+<li><b>Personnel</b></li>
+<li><a href="e_personnel.php">Ajouter</a></li>
+<li><a href="l_personnel.php">Liste personnel</a></li>
+<li><a href="list_pointage_personnel.php">Pointages du personnel</a></li>
+<?php
+}
+?>
+ 
+<li><b>Contact</b></li>
+  <li><a href="e_contact.php">Nouveau </a></li>
+  <li><a href="l_contact.php">Liste des contacts</a></li>
+
+<li><b>Ravitaillement produit</b></li>
+ <?php
+      if ( ($_SESSION['fonction']=='administrateur') OR ($_SESSION['fonction']=='secretaire'))
       {
         ?>
-        <li><a href="n_patient_rdv.php">Nouveau rendez-vous</a></li>
-  <li><a href="l_rdv">Liste des rendez-vous</a></li>
-        <?php
-      }
-      if (($_SESSION['fonction']=='medecin') OR ($_SESSION['fonction']=='administrateur') OR ($_SESSION['fonction']=='infirmier' OR ($_SESSION['fonction']=='secretaire')))
-      {
-      ?>
-       <?php
-      if ($_SESSION['fonction']=='secretaire' OR $_SESSION['fonction']=='infirmier') 
-      {
-        echo '<li><a href="l_patient_cons.php">Nouvelle consultation</a></li>';
-      }
-      ?>
-  <li><a href="l_consultation.php">Liste des consultations</a></li>
-      <?php
-      }
-      if (($_SESSION['fonction']=='secretaire') OR ($_SESSION['fonction']=='administrateur'))
-      {
-        ?>
-         <?php
-      if ($_SESSION['fonction']=='secretaire') 
-      {
-        echo '<li><a href="e_patient.php">Nouveau dossier</a></li>';
-      }
-      ?>
-  <li><a href="l_patient.php">Liste des patients</a></li>
-      <?php
-      }
-      ?>
-      <?php
-      if ($_SESSION['fonction']=='administrateur' OR $_SESSION['fonction']=='daf')
-      {
-        ?>
-        <li><a href="e_personnel.php">Ajouter</a></li>
-  <li><a href="l_personnel.php">Liste personnel</a></li>
-  <li><a href="list_pointage_personnel.php">Pointages du personnel</a></li>
-        <?php
-      }
-      if ($_SESSION['fonction']=='femme de charge' )
-      {
-        echo '<li ><a  href="pointage_personnel_sante.php">Pointage</a></li>';
-      }
-      ?>
-     <li><a href="deconnexion.php">Déconnexion</a></li>
+  <li><a href="produit.php">Produit</a></li>
   <?php
-      if ($_SESSION['fonction']!='femme de charge')
-      {
-        ?>
-      <li><a href="pointage_personnel_sante.php">Pointage</a></li>
-       <?php    
-      }
-      ?>
+    }
+  ?>
+  <li><a href="l_ravitaillement_produit.php">Ravitaillement produit</a></li>
+
+
+<li><b>Dabakh</b></li>
+<?php
+   if ($_SESSION['service1']=='service general') 
+  {
+    ?>
+    <li><a href="immobilier.php">Immobilier</a></li>
+    <?php
+  }
+  ?>
+<li><a href="deconnexion.php">Déconnexion</a></li>
+
+
+
 </ul>
 
 <style type="text/css">
